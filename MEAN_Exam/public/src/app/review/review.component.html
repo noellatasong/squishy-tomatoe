@@ -1,0 +1,27 @@
+<h1 *ngIf="movie">Add a review for {{movie.title}}</h1>
+
+<form (submit)="newRating(movie._id)" #myForm="ngForm">
+  Your Name:
+  <input type="text" name="newreview.name" [(ngModel)]="newreview.name" required minlength='3' #moviename="ngModel" />
+  <p *ngIf="moviename.errors">Name is Required (3 characters minimum)</p>
+  <p *ngIf="errors.name"> {{errors.name.message}}</p>
+  <br>
+
+  Stars:
+  <select name="newreview.rating" [(ngModel)]="newreview.rating">
+    <option value= "1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <br>
+  Description:
+  <textarea name="newreview.description" [(ngModel)]="newreview.description" rows=5 cols=50 required minlength='10' #moviedescription="ngModel"></textarea>
+  <p *ngIf="moviedescription.errors">Comment is Required (10 characters minimum)</p>
+  <p *ngIf="errors.description"> {{errors.description.message}}</p>
+  <br>
+
+  <input type="submit" [disabled]="!myForm.form.valid" value="Submit"/>
+  <button (click) = "cancel(movie._id)">Cancel</button>
+</form>
